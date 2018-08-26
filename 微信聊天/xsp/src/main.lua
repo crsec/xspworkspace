@@ -32,12 +32,8 @@ t['微信_我'] = {
 
 
 
-
-
-d('微信_我',true,5,"多点调试日志")
-
-
-
+appbid = "com.tencent.xin"
+active(appbid)
 
 
 

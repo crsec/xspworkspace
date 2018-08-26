@@ -118,6 +118,17 @@ function d(name,clicks,clicks_mun,logtest)
 	end
 end
 
+--启动app
+function active(appbid,times)
+	local appid = frontAppName()
+	if appbid == appid then
+		return true
+	else
+		runApp(appbid)
+		local times = times or 3.5
+		mSleep(1000*times)
+	end
+end
 
 
 
