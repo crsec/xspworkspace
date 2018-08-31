@@ -7,33 +7,12 @@ mSleep(1000) --延迟5秒
 
 
 t={}
-t['微信'] = {
-{0, 0, 639, 1135}, 
-{
-	{x=0,y=0,color=0x00cc0d},
-	{x=-13,y=-17,color=0xffffff},
-	{x=37,y=54,color=0xffffff},
-	{x=-23,y=80,color=0x00b70c},
-	{x=-303,y=18,color=0xbd71ef},
-	{x=-463,y=-360,color=0x49ea64}
-},
-95, 0, 0, 0}
 
-t['微信_我'] = {
-	{43,417,0x10aeff},
-	{55,532,0x10aeff},
-	{51,642,0x10aeff},
-	{56,719,0xffc701},
-	{54,847,0xffffff},
-}
-
-
-
-
-
-
-appbid = "com.tencent.xin"
-active(appbid)
+w,h = getScreenSize()
+logs( w .." * ".. h )
+if w == 640 and h == 1136 then
+	require("iphone6")
+end
 
 
 
@@ -41,12 +20,12 @@ active(appbid)
 
 
 
+--appbid = "com.tencent.xin"
+--active(appbid)
 
 
 
-
-
-
+d("首页_微信")
 
 
 
