@@ -63,10 +63,10 @@ end
 
 --多点比色
 function 多点比色(name,clicks,clicks_mun,logtest)
-	logs("即将多点比色")
+--	logs("即将多点比色")
 	local ft = t[name]
-	s = s or 90
-	s = math.floor(0xff*(100-s)*0.01)
+	local s = s or 90
+	local s = math.floor(0xff*(100-s)*0.01)
 	for var = 1, #ft do
 		local lr,lg,lb = getColorRGB(ft[var][1],ft[var][2])
 		local rgb = ft[var][3]
@@ -91,14 +91,14 @@ end
 
 --多点找色
 function 多点找色(name,clicks,clicks_mun,logtest)
-	logs("即将多点找色->"..name)
+--	logs("即将多点找色->"..name)
 	local ft = t[name]
 	local clicks_mun = clicks_mun or 1
 	if clicks_mun > #ft[2] then clicks_mun = #ft[2] end
 	
-	local x,y = findColor(ft[1],ft[2],ft[3],ft[4],ft[5],ft[6])
+	x,y = findColor(ft[1],ft[2],ft[3],ft[4],ft[5],ft[6])
 	if x > -1 and y > -1 then
-		logs("多点找色成功->("..x..","..y..")")
+		logs("多点找色成功->"..name.."->("..x..","..y..")")
 		if clicks then
 			local x1,y1 = x+ft[2][clicks_mun]["x"],y+ft[2][clicks_mun]["y"]
 			logs("即将点击->第"..clicks_mun.."点->("..x1..","..y1..")")
@@ -126,8 +126,8 @@ end
 function tab(name,clicks,clicks_mun,true_mun,logtest)
 	logs("即将 tab比对")
 	local ft = t[name]
-	s = s or 90
-	s = math.floor(0xff*(100-s)*0.01)
+	local s = s or 90
+	local s = math.floor(0xff*(100-s)*0.01)
 	local success = 0
 	if true_mun >= #ft then
 		dialog("tab 参数错误->arr为"..#ft)
@@ -552,14 +552,17 @@ function get(url,arr)
 	local bb = require("badboy")
 	local indexs = 1
 	local post_data = '';
-	for k,v in pairs(arr)do
-		if indexs == 1 then
-			post_data = post_data .. k .."=".. v
-		else
-			post_data = post_data .."&".. k .."=".. v
+	if arr ~= nil then
+		for k,v in pairs(arr)do
+			if indexs == 1 then
+				post_data = post_data .. k .."=".. v
+			else
+				post_data = post_data .."&".. k .."=".. v
+			end
+			indexs = indexs + 1
 		end
-		indexs = indexs + 1
 	end
+	
 	bb.loadluasocket()
 	local http = bb.http
 	newUrl = url.."&"..post_data
@@ -574,7 +577,19 @@ function get(url,arr)
 	end
 end
 
-
+--获取get()
+function getdy(url)
+	local bb = require("badboy")
+	bb.loadluasocket()
+	local http = bb.http
+	local res, code = http.request(url);
+	if code == 200 then
+		local json = bb.getJSON()
+		local tabless = json.decode(res)
+		print_r(tabless)
+		return tabless
+	end
+end
 
 
 

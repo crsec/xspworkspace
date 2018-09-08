@@ -1,0 +1,17 @@
+[SOURCE]
+1\SOURCEFILE=C:/Users/wenfree/Documents/xspworkspace/\x6296\x97f3\x53d1\x79c1\x4fe1/xsp/src/badboy.lua
+2\SOURCEFILE=C:/Users/wenfree/Documents/xspworkspace/\x6296\x97f3\x53d1\x79c1\x4fe1/xsp/src/iphone6.lua
+size=5
+3\SOURCEFILE=C:/Users/wenfree/Documents/xspworkspace/\x6296\x97f3\x53d1\x79c1\x4fe1/xsp/src/main.lua
+4\SOURCEFILE=C:/Users/wenfree/Documents/xspworkspace/\x6296\x97f3\x53d1\x79c1\x4fe1/xsp/src/xxlib.lua
+5\SOURCEFILE=C:/Users/wenfree/Documents/xspworkspace/\x6296\x97f3\x53d1\x79c1\x4fe1/xsp/src/awz.lua
+
+[UI]
+1\UIFILE=C:/Users/wenfree/Documents/xspworkspace/\x6296\x97f3\x53d1\x79c1\x4fe1/xsp/ui/ui.json
+size=1
+
+[RES]
+size=0
+
+[LIB]
+size=0

@@ -1,0 +1,295 @@
+function make_FMC(poslist)
+	local ret = ""
+	local firstPos
+	for i,currentPos in ipairs(poslist) do
+		if i==1 then
+			firstPos = currentPos
+			ret = ret..string.format("0x%06x,\"", firstPos.color)
+		else
+			ret = ret..string.format("%d|%d|0x%06x", currentPos.x - firstPos.x, currentPos.y - firstPos.y, currentPos.color)
+			if i~=#poslist then
+				ret = ret..","
+			end
+		end
+	end
+	return ret..'"'
+end
+
+function make_FMC_1(poslist)
+	local ret = '"'
+	local firstPos = poslist[1]
+	for i,currentPos in ipairs(poslist) do
+		ret = ret..string.format("%d|%d|0x%06x", currentPos.x - firstPos.x, currentPos.y - firstPos.y, currentPos.color)
+		if (currentPos.offset~= nil and currentPos.offset~="0x000000") then
+			ret = ret..string.format("-0x%06x", currentPos.offset)
+		end
+		if i~=#poslist then
+			ret = ret..","
+		end
+	end
+	return ret..'"'
+end
+
+function make_FMC_2(poslist)
+	local ret = '"'
+	for i,currentPos in ipairs(poslist) do
+		ret = ret..string.format("%d|%d|0x%06x", currentPos.x, currentPos.y, currentPos.color)
+		if (currentPos.offset~= nil and currentPos.offset~="0x000000") then
+			ret = ret..string.format("-0x%06x", currentPos.offset)
+		end
+		if i~=#poslist then
+			ret = ret..","
+		end
+	end
+	return ret..'"'
+end
+
+function make_FMC_3(poslist)
+	local ret = "{\r\n"
+	local firstPos = poslist[1]
+	for i,currentPos in ipairs(poslist) do		
+		ret = ret..string.format("\t{x=%d,y=%d,color=0x%06x", currentPos.x - firstPos.x, currentPos.y - firstPos.y, currentPos.color)
+		if (currentPos.offset~= nil and currentPos.offset~="0x000000") then
+			ret = ret..string.format(",offset=0x%06x", currentPos.offset)
+		end
+		ret = ret..'}'
+		if i~=#poslist then
+			ret = ret..",\r\n"
+		end
+	end
+	return ret.."\r\n}"
+end
+--wenfree
+function make_FMC_3(poslist)
+	local ret = "{"
+	local firstPos = poslist[1]
+	for i,currentPos in ipairs(poslist) do		
+		ret = ret..string.format(" {x=%d,y=%d,color=0x%06x", currentPos.x - firstPos.x, currentPos.y - firstPos.y, currentPos.color)
+		if (currentPos.offset~= nil and currentPos.offset~="0x000000") then
+			ret = ret..string.format(",offset=0x%06x", currentPos.offset)
+		end
+		ret = ret..'}'
+		if i~=#poslist then
+			ret = ret..","
+		end
+	end
+	return ret.."}"
+end
+
+function make_FMC_4(poslist)
+	local ret = "{\r\n"
+	for i,currentPos in ipairs(poslist) do		
+		ret = ret..string.format("\t{x=%d,y=%d,color=0x%06x", currentPos.x, currentPos.y, currentPos.color)
+		if (currentPos.offset~= nil and currentPos.offset~="0x000000") then
+			ret = ret..string.format(",offset=0x%06x", currentPos.offset)
+		end
+		ret = ret..'}'
+		if i~=#poslist then
+			ret = ret..",\r\n"
+		end
+	end
+	return ret.."\r\n}"
+end
+
+local datacolorfg = {
+	{
+		title = "Color code",
+		fScript = function(poslist,area, degree, hdir, vdir, priority)
+			return string.format("x, y = findColorInRegionFuzzy(0x%06x, %d, %d, %d, %d, %d, %d, %d)\nif x > -1 then\n\nend",
+											poslist[1].color,
+											degree,
+											area[1].x,
+											area[1].y,
+											area[2].x,
+											area[2].y,
+											hdir,
+											vdir)
+		end,
+		sScript = function (poslist,area, degree, hdir, vdir, priority)
+			return string.format("x, y = findMultiColorInRegionFuzzy(%s, %d, %d, %d, %d, %d, %d, %d)\nif x > -1 then\n\nend",
+													make_FMC(poslist),
+													degree,
+													area[1].x,
+													area[1].y,
+													area[2].x,
+													area[2].y,
+													hdir,
+													vdir)
+		end
+		
+	},
+	{
+		title = "findColor函数",
+		fScript = function(poslist,area, degree, hdir, vdir, priority)
+			return string.format("x, y = findColor({%d, %d, %d, %d}, \r\n%s,\r\n%d, %d, %d, %d)\r\nif x > -1 then\r\n\r\nend",
+											area[1].x,
+											area[1].y,
+											area[2].x,
+											area[2].y,
+											make_FMC_1(poslist),
+											degree, hdir, vdir, priority)
+			--[[
+			return string.format("x, y = findColor({%d, %d, %d, %d}, \r\n%s,\r\n%d, %d, %d, %d)\r\nif x > -1 then\r\n\r\nend",
+											area[1].x,
+											area[1].y,
+											area[2].x,
+											area[2].y,
+											make_FMC_1(poslist),
+											degree, hdir, vdir, priority)
+			--]]
+		end,
+		sScript = function (poslist,area, degree, hdir, vdir, priority)
+			return string.format("x, y = findColor({%d, %d, %d, %d}, \r\n%s,\r\n%d, %d, %d, %d)\r\nif x > -1 then\r\n\r\nend",
+											area[1].x,
+											area[1].y,
+											area[2].x,
+											area[2].y,
+											make_FMC_2(poslist),
+											degree, hdir, vdir, priority)	
+		end
+		
+	},
+	{
+		title = "findColor函数-table",
+		fScript = function(poslist,area, degree, hdir, vdir, priority)
+			return string.format("t['']={{%d, %d, %d, %d},%s,%d,%d,%d,%d}",
+											area[1].x,
+											area[1].y,
+											area[2].x,
+											area[2].y,
+											make_FMC_3(poslist),
+											degree, hdir, vdir, priority)			
+			--[[
+			return string.format("x, y = findColor({%d, %d, %d, %d}, \r\n%s,\r\n%d, %d, %d, %d)\r\nif x > -1 then\r\n\r\nend",
+											area[1].x,
+											area[1].y,
+											area[2].x,
+											area[2].y,
+											make_FMC_3(poslist),
+											degree, hdir, vdir, priority)	
+										--]]
+		end,
+		sScript = function (poslist,area, degree, hdir, vdir, priority)
+			return string.format("x, y = findColor({%d, %d, %d, %d}, \r\n%s,\r\n%d, %d, %d, %d)\r\nif x > -1 then\r\n\r\nend",
+											area[1].x,
+											area[1].y,
+											area[2].x,
+											area[2].y,
+											make_FMC_4(poslist),
+											degree, hdir, vdir, priority)	
+		end
+		
+	},
+	{
+		title = "findColors函数",
+		fScript = function(poslist,area, degree, hdir, vdir, priority)
+			return string.format("point = findColors({%d, %d, %d, %d}, \r\n%s,\r\n%d, %d, %d, %d)\r\nif #point ~= 0 then\r\n\r\nend",
+											area[1].x,
+											area[1].y,
+											area[2].x,
+											area[2].y,
+											make_FMC_1(poslist),
+											degree, hdir, vdir, priority)	
+		end,
+		sScript = function (poslist,area, degree, hdir, vdir, priority)
+			return string.format("point = findColors({%d, %d, %d, %d}, \r\n%s,\r\n%d, %d, %d, %d)\r\nif #point ~= 0 then\r\n\r\nend",
+											area[1].x,
+											area[1].y,
+											area[2].x,
+											area[2].y,
+											make_FMC_2(poslist),
+											degree, hdir, vdir, priority)	
+		end
+		
+	},
+	{
+		title = "findColors函数-table",
+		fScript = function(poslist,area, degree, hdir, vdir, priority)
+			return string.format("point = findColors({%d, %d, %d, %d}, \r\n%s,\r\n%d, %d, %d, %d)\r\nif #point ~= 0then\r\n\r\nend",
+											area[1].x,
+											area[1].y,
+											area[2].x,
+											area[2].y,
+											make_FMC_3(poslist),
+											degree, hdir, vdir, priority)	
+		end,
+		sScript = function (poslist,area, degree, hdir, vdir, priority)
+			return string.format("point = findColors({%d, %d, %d, %d}, \r\n%s,\r\n%d, %d, %d, %d)\r\nif #point ~= 0 then\r\n\r\nend",
+											area[1].x,
+											area[1].y,
+											area[2].x,
+											area[2].y,
+											make_FMC_4(poslist),
+											degree, hdir, vdir, priority)	
+		end
+		
+	},
+	{
+		title = "Table data",
+		fScript = function(poslist,area, degree, hdir, vdir, priority)
+				local ret = "t['']={"
+				for _,currentPos in ipairs(poslist) do
+					ret = ret..string.format("{%d,%d,0x%06x},", currentPos.x, currentPos.y, currentPos.color)
+				end
+				return ret.."}"				
+		--[[		
+				local ret = "{\r\n"
+				for _,currentPos in ipairs(poslist) do
+					ret = ret..string.format("\t{%d,%d,0x%06x},\r\n", currentPos.x, currentPos.y, currentPos.color)
+				end
+				return ret.."}"
+				--]]
+		end,
+		sScript = function (poslist,area, degree, hdir, vdir, priority)
+				return string.format("{\r\n\t{%d, %d, %d, %d},\r\n\t%s,\r\n\t%d, %d, %d, %d\r\n}",
+													area[1].x,
+													area[1].y,
+													area[2].x,
+													area[2].y,
+													make_FMC_1(poslist),
+													degree, hdir, vdir, priority)
+		end
+	},
+	{
+		title = "Compact table data",
+		fScript = function(poslist,area, degree, hdir, vdir, priority)
+				local ret = "{"
+				for _,currentPos in ipairs(poslist) do
+					ret = ret..string.format("{%d,%d,0x%06x},", currentPos.x, currentPos.y, currentPos.color)
+				end
+				return ret.."}"
+		end,
+		sScript = function (poslist,area, degree, hdir, vdir, priority)
+				return string.format("{{%d, %d, %d, %d},%s,%d, %d, %d, %d}",
+													area[1].x,
+													area[1].y,
+													area[2].x,
+													area[2].y,
+													make_FMC_1(poslist),
+													degree, hdir, vdir, priority)
+		end
+	},
+	
+		{
+		title = "ocr diff",
+		fScript = function(poslist,area, degree, hdir, vdir, priority)
+				local ret = "diff = {"
+				for i,currentPos in ipairs(poslist) do
+					if (currentPos.offset~= nil) then
+						ret = ret..string.format("\"0x%06x-0x%06x\"", currentPos.color, currentPos.offset)
+						if i~=#poslist then
+							ret = ret..","
+						end
+					end
+				end
+				return ret.."}"
+		end,
+		sScript = function (poslist,area, degree, hdir, vdir, priority)
+				return ""
+		end
+	},
+	
+
+}
+
+return datacolorfg
