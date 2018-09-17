@@ -583,7 +583,7 @@ function commnet_follow()
 end
 
 
---[[
+--[[]]
 local lun_index = 0
 while 1 do
 	local resttable = getadtext()
@@ -609,19 +609,6 @@ while 1 do
 end
 --]]
 
-local ocr, msg = createOCR({
-    type = "tesseract", -- 指定tesseract引擎
-    path = "[external]", -- 使用开发助手/叉叉助手的扩展字库
-    lang = "chi_sim" -- 使用英文增强字库(注意需要提前下载好)
-})
-
-    code, text = ocr:getText({
-        rect = { 76,575,296,634 },
-        diff = {"0x5b5b5b-0x202020"}, -- 时间颜色为纯黑
---        whitelist = "T0123456789" -- 添加所有可能出现的字符作为白名单
-    })
-
-logs(text)
 
 
 mSleep(2000) --延迟5秒

@@ -494,7 +494,6 @@ default	C:/Users/wenfree/Documents/xspworkspace/抖音发私信/xsp/src\bblibs\socket
 default_pretty_indent	C:/Users/wenfree/Documents/xspworkspace/抖音发私信/xsp/src\bblibs\JSON.lua	289;"	e
 default_pretty_options	C:/Users/wenfree/Documents/xspworkspace/抖音发私信/xsp/src\bblibs\JSON.lua	290;"	e
 delay	C:/Users/wenfree/Documents/xspworkspace/抖音发私信/xsp/src\xxlib.lua	209;"	f
-diff	C:/Users/wenfree/Documents/xspworkspace/抖音发私信/xsp/src\main.lua	620;"	e
 dirty	C:/Users/wenfree/Documents/xspworkspace/抖音发私信/xsp/src\bblibs\socket\http.lua	68;"	e
 dirty	C:/Users/wenfree/Documents/xspworkspace/抖音发私信/xsp/src\bblibs\socket\http.lua	94;"	e
 dirty	C:/Users/wenfree/Documents/xspworkspace/抖音发私信/xsp/src\bblibs\socket\socket.lua	112;"	e
@@ -727,7 +726,6 @@ keyLen	C:/Users/wenfree/Documents/xspworkspace/抖音发私信/xsp/src\bblibs\StrUtil
 key_indent	C:/Users/wenfree/Documents/xspworkspace/抖音发私信/xsp/src\bblibs\JSON.lua	906;"	e
 l	C:/Users/wenfree/Documents/xspworkspace/抖音发私信/xsp/src\bblibs\StrUtilsAPI.lua	931;"	e
 l	C:/Users/wenfree/Documents/xspworkspace/抖音发私信/xsp/src\bblibs\StrUtilsAPI.lua	942;"	e
-lang	C:/Users/wenfree/Documents/xspworkspace/抖音发私信/xsp/src\main.lua	615;"	e
 last	C:/Users/wenfree/Documents/xspworkspace/抖音发私信/xsp/src\bblibs\StrUtilsAPI.lua	312;"	e
 last	C:/Users/wenfree/Documents/xspworkspace/抖音发私信/xsp/src\bblibs\md5.lua	107;"	e
 last	C:/Users/wenfree/Documents/xspworkspace/抖音发私信/xsp/src\main.lua	173;"	e
@@ -1012,7 +1010,6 @@ path	C:/Users/wenfree/Documents/xspworkspace/抖音发私信/xsp/src\bblibs\socket\ur
 path	C:/Users/wenfree/Documents/xspworkspace/抖音发私信/xsp/src\bblibs\socket\url.lua	91;"	e
 path	C:/Users/wenfree/Documents/xspworkspace/抖音发私信/xsp/src\bblibs\socket\url.lua	94;"	e
 path	C:/Users/wenfree/Documents/xspworkspace/抖音发私信/xsp/src\bblibs\socket\url.lua	98;"	e
-path	C:/Users/wenfree/Documents/xspworkspace/抖音发私信/xsp/src\main.lua	614;"	e
 pattern	C:/Users/wenfree/Documents/xspworkspace/抖音发私信/xsp/src\bblibs\socket\ftp.lua	70;"	e
 pcs	C:/Users/wenfree/Documents/xspworkspace/抖音发私信/xsp/src\bblibs\StrUtilsAPI.lua	638;"	e
 ph	C:/Users/wenfree/Documents/xspworkspace/抖音发私信/xsp/src\bblibs\socket\ftp.lua	93;"	e
@@ -1077,7 +1074,6 @@ receivebody(headers,	C:/Users/wenfree/Documents/xspworkspace/抖音发私信/xsp/src\
 receiveheaders	C:/Users/wenfree/Documents/xspworkspace/抖音发私信/xsp/src\bblibs\socket\http.lua	34;"	f
 receiveheaders()	C:/Users/wenfree/Documents/xspworkspace/抖音发私信/xsp/src\bblibs\socket\http.lua	157;"	f
 receivestatusline()	C:/Users/wenfree/Documents/xspworkspace/抖音发私信/xsp/src\bblibs\socket\http.lua	146;"	f
-rect	C:/Users/wenfree/Documents/xspworkspace/抖音发私信/xsp/src\main.lua	619;"	e
 reduced	C:/Users/wenfree/Documents/xspworkspace/抖音发私信/xsp/src\bblibs\socket\url.lua	97;"	e
 relative_parsed	C:/Users/wenfree/Documents/xspworkspace/抖音发私信/xsp/src\bblibs\socket\url.lua	228;"	e
 remainder	C:/Users/wenfree/Documents/xspworkspace/抖音发私信/xsp/src\bblibs\JSON.lua	325;"	e
@@ -1541,7 +1537,6 @@ type	C:/Users/wenfree/Documents/xspworkspace/抖音发私信/xsp/src\bblibs\UI.lua	39
 type	C:/Users/wenfree/Documents/xspworkspace/抖音发私信/xsp/src\bblibs\UI.lua	53;"	e
 type	C:/Users/wenfree/Documents/xspworkspace/抖音发私信/xsp/src\bblibs\UI.lua	67;"	e
 type	C:/Users/wenfree/Documents/xspworkspace/抖音发私信/xsp/src\bblibs\UI.lua	98;"	e
-type	C:/Users/wenfree/Documents/xspworkspace/抖音发私信/xsp/src\main.lua	613;"	e
 type(type)	C:/Users/wenfree/Documents/xspworkspace/抖音发私信/xsp/src\bblibs\socket\ftp.lua	166;"	f
 u	C:/Users/wenfree/Documents/xspworkspace/抖音发私信/xsp/src\bblibs\socket\ftp.lua	195;"	e
 u	C:/Users/wenfree/Documents/xspworkspace/抖音发私信/xsp/src\bblibs\socket\http.lua	187;"	e
