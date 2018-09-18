@@ -123,15 +123,15 @@ function d(name,clicks,clicks_mun,logtest)
 end
 
 --tab 多点比色
-function tab(name,clicks,clicks_mun,true_mun,logtest)
+function tab(name,clicks,clicks_mun,true_mun,s,logtest)
 	logs("即将 tab比对")
 	local ft = t[name]
 	local s = s or 90
 	local s = math.floor(0xff*(100-s)*0.01)
 	local success = 0
-	if true_mun >= #ft then
-		dialog("tab 参数错误->arr为"..#ft)
-	end
+--	if true_mun >= #ft then
+--		dialog("tab 参数错误->arr为"..#ft)
+--	end
 	for var = 1, #ft-1 do
 		local lr,lg,lb = getColorRGB(ft[var][1],ft[var][2])
 		local rgb = ft[var][3]
@@ -157,7 +157,7 @@ function tab(name,clicks,clicks_mun,true_mun,logtest)
 		end
 	end
 	
-	if success >= true_mun and mastcolor then
+	if success >= #ft-1 and mastcolor then
 		if clicks then
 			local clicks_mun = clicks_mun or 1
 			logs("tab 点击->第 "..clicks_mun.." 点")
