@@ -203,6 +203,7 @@ function send()
 				if d('个人界面_粉丝_发消息',true)then
 				
 				elseif d('个人界面_消息图标')then
+					click(x-400,y)
 					input(resttable.data.text..zfb[rd(1,#zfb)]..zfb[rd(1,#zfb)]..zfb[rd(1,#zfb)])
 					if d('个人界面_发送',true)then
 						delay(3)
@@ -215,6 +216,8 @@ function send()
 					end
 				elseif d('个人界面_消息图标灰')then
 					click(x-400,y)
+				else
+					click(t['back'][1],t['back'][2])
 				end
 			else
 				click(t['back'][1],t['back'][2])
@@ -304,16 +307,95 @@ function sendpic()
 	end
 end
 
-local todo = getadtext()
+function search()
+	
+	function play(sid)
 
-if todo.data.doway == '1' then
-	follow()
-elseif todo.data.doway == '2' then
-	send()
-elseif todo.data.doway == '3' then
-	sendpic()
+		local TimeLine = mTime()
+		local OutTimes = 60*5*1000
+		
+
+
+		while mTime()-TimeLine < OutTimes do
+			if active(appbid,5)then
+				if success >= alltodo then
+					dialog("发送完成")
+					return true
+				end
+				if d('首页菜单_红绿')and tab("首页菜单",true,1,4,90,"准备查看首页")then
+					click(t['back'][1],t['back'][2])
+				
+				elseif d('搜索界面')then
+					click(t['搜索界面_框框'][1],t['搜索界面_框框'][2])
+					input("#CLEAR#")
+				elseif d('搜索界面_取消红')then
+					input(sid)
+					if d('个人界面_发送',true)then
+						delay(rd(4,6))
+					else
+						click(t['back'][1],t['back'][2])
+					end
+				elseif d('搜索界面_结果界面')then
+					if d('搜索界面_结果_关注',true)then
+						delay(2)
+						click(t['back'][1],t['back'][2])
+						local rdkey = rd(5,12)
+						showbox('随机->'..rdkey)
+						delay(rdkey)
+						return true
+					else
+						click(t['back'][1],t['back'][2])
+						return false
+					end
+					
+				end
+			end
+			delay(1)
+		end
+	end
+	
+	local urlss = 'http://47.97.179.124:6789/aweme/api/users/get_follow?user_id=1'
+	dyidlist = getdy(urlss)
+	if dyidlist ~= nil then
+		if tonumber(dyidlist.res) == 0 then
+			for k,v in ipairs(dyidlist.message)do
+				if v.gender == 1 then
+					if play(v.short_id) then
+						success = success + 1
+						if success >= alltodo then
+							dialog("关注完成")
+							return true
+						end
+					end
+				end
+			end
+		else
+			dialog("取id失败,休息10秒",10)
+		end
+	end
+	search()
 end
 
+
+local todo = getadtext()
+alltodo = tonumber(todo.data.mun)
+--logs('alltodo->'..alltodo)
+--todo.data.doway = '3'
+
+if todo ~= nil then
+	if todo.data.doway == '1' then
+		follow()
+	elseif todo.data.doway == '2' then
+		send()
+	elseif todo.data.doway == '3' then
+		sendpic()	
+	elseif todo.data.doway == '4' then
+		success = 0
+		search()
+	end
+else
+	dialog('网络连接失败,请重启动脚本')
+end
 mSleep(2000) --延迟5秒
 
 
