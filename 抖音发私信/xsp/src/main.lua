@@ -1,6 +1,8 @@
 require("xxlib")
 require("awz")
 
+
+
 logs(frontAppName())
 appbid = "com.ss.iphone.ugc.Aweme"
 
@@ -339,7 +341,7 @@ function search()
 					if d('搜索界面_结果_关注',true)then
 						delay(2)
 						click(t['back'][1],t['back'][2])
-						local rdkey = rd(5,12)
+						local rdkey = rd(1,5)
 						showbox('随机->'..rdkey)
 						delay(rdkey)
 						return true
@@ -353,6 +355,8 @@ function search()
 			delay(1)
 		end
 	end
+	
+	logs("取id")
 	
 	local urlss = 'http://47.97.179.124:6789/aweme/api/users/get_follow?user_id=1'
 	dyidlist = getdy(urlss)
@@ -382,6 +386,7 @@ alltodo = tonumber(todo.data.mun)
 --logs('alltodo->'..alltodo)
 --todo.data.doway = '3'
 
+
 if todo ~= nil then
 	if todo.data.doway == '1' then
 		follow()
@@ -389,7 +394,7 @@ if todo ~= nil then
 		send()
 	elseif todo.data.doway == '3' then
 		sendpic()	
-	elseif todo.data.doway == '4' then
+	elseif todo.data.doway == '4' or  todo.data.doway == 4 then
 		success = 0
 		search()
 	end
@@ -397,8 +402,7 @@ else
 	dialog('网络连接失败,请重启动脚本')
 end
 mSleep(2000) --延迟5秒
-
-
+dialog("脚本结束",0)
 
 
 
