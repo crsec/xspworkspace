@@ -380,6 +380,61 @@ function search()
 	search()
 end
 
+function followOne()
+	local TimeLine = mTime()
+	local OutTimes = 60*120*1000
+	local success = 0
+	local resttable = getadtext()
+	local Up_key = false
+	local Up_key_times = 0
+	local lady_key = 0
+	local send_key = false
+	local bottom_key = 0
+	print_r(resttable)
+	
+	while mTime()-TimeLine < OutTimes do
+
+		if d('TA的粉丝界面')then
+			if Up_key then
+				moveTo(340,750,340,750-160,5,20)
+				Up_key = false
+			elseif d('TA的粉丝界面_关注')then
+				click(x-200,y)
+			end
+		elseif d('个人界面')then
+			showbox('个人界面')
+			if d('个人界面_女')then
+				d('个人界面',true,1)
+				Up_key = true
+				lady_key = lady_key + 1
+			elseif d('个人界面_发消息') or d('个人界面_已经关注')then
+				Up_key = true
+				success = success + 1
+				showbox('关注次数->'..success)
+				if d('个人界面',true,1)then
+					delay(2)
+				end
+			elseif d('个人界面_男')then
+				lady_key = 0
+				d('个人界面_关注',true)
+			else
+				lady_key = 0
+				showbox('性别无')
+				if d('个人界面',true,1)then
+					Up_key = true
+					delay(2)
+				end
+			end
+		else
+			click(t['back'][1],t['back'][2])
+			Up_key = true
+		end
+
+		delay(1)
+	end
+end
+
+--[[]]
 
 local todo = getadtext()
 alltodo = tonumber(todo.data.mun)
@@ -389,7 +444,7 @@ alltodo = tonumber(todo.data.mun)
 
 if todo ~= nil then
 	if todo.data.doway == '1' then
-		follow()
+		followOne()
 	elseif todo.data.doway == '2' then
 		send()
 	elseif todo.data.doway == '3' then
@@ -404,41 +459,72 @@ end
 mSleep(2000) --延迟5秒
 dialog("脚本结束",0)
 
+--]]
 
 
+jm={}
+jm.url = 'http://www.jima99.com:9180/service.asmx/'
+jm.name = "ouwen000"
+jm.psw = "wenhong"
+jm.id = 3772
 
+function jmlogin()
+	local moth = "UserLoginStr"	
+	local url = jm.url..moth
+	local getArr={}
+	getArr.name = "ouwen000"
+	getArr.psw = "wenhong"
+	jm.token = get(url,getArr)
+	if jm.token ~= nil then
+		return true
+	end
+end
 
+function jmGet_phone()
+	local moth = "GetHMStr"
+	local url = jm.url..moth
+	local getArr={}
+	getArr.token = jm.token
+	getArr.xmid = jm.id
+	getArr.lx = 0
+	getArr.sl = 1
+	getArr.a1 = ''
+	getArr.a2 = ''
+	getArr.pk = ''
 
+	local data = get(url,getArr)
+	
+	if data ~= nil then
+		result = split(data,"=")
+		phone = result[2]
+		logs(phone)
+		return result[2]
+	end
+end
 
+function jmGet_sms()
+	local moth = "GetYzmStr"
+	local url = jm.url..moth
+	local getArr={}
+	getArr.token = jm.token
+	getArr.hm = phone
+	getArr.xmid = jm.id
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	local data = get(url,getArr)
+	logs(data)
+	if data == 1 then
+		logs("暂时没有拿到手机号")
+		delay(3)
+	elseif data <= 0 then
+		logs(data,true)
+		delay(3)
+	else
+		local i,j = string.find(data,"%d+")
+		sms = string.sub(sms,i,j)
+		logs(sms)
+		return true
+	end
+end
 
 
 

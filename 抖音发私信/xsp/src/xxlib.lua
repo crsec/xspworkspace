@@ -565,15 +565,16 @@ function get(url,arr)
 	
 	bb.loadluasocket()
 	local http = bb.http
-	newUrl = url.."&"..post_data
+	newUrl = url.."?"..post_data
 	logs(newUrl)
 	local res, code = http.request(newUrl);
 	if code == 200 then
-		logs(res)
-		local json = bb.getJSON()
-		local tabless = json.decode(res)
-		print_r(tables)
-		return tabless
+		logs(res.."-->res")
+		return res
+--		local json = bb.getjson()
+--		local tabless = json.decode(res)
+--		print_r("tables-->"..tabless)
+--		return tabless
 	end
 end
 
