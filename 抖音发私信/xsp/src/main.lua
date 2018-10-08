@@ -403,26 +403,22 @@ function followOne()
 			end
 		elseif d('个人界面')then
 			showbox('个人界面')
+			Up_key = true
 			if d('个人界面_女')then
 				d('个人界面',true,1)
-				Up_key = true
-				lady_key = lady_key + 1
 			elseif d('个人界面_发消息') or d('个人界面_已经关注')then
-				Up_key = true
 				success = success + 1
 				showbox('关注次数->'..success)
 				if d('个人界面',true,1)then
 					delay(2)
 				end
 			elseif d('个人界面_男')then
-				lady_key = 0
 				d('个人界面_关注',true)
 			else
-				lady_key = 0
 				showbox('性别无')
-				if d('个人界面',true,1)then
-					Up_key = true
-					delay(2)
+				if d('个人界面_关注',true)then
+				else
+					click(t['back'][1],t['back'][2])
 				end
 			end
 		else
@@ -443,7 +439,7 @@ alltodo = tonumber(todo.data.mun)
 
 
 if todo ~= nil then
-	if todo.data.doway == '1' then
+	if true or todo.data.doway == '1' then
 		followOne()
 	elseif todo.data.doway == '2' then
 		send()
